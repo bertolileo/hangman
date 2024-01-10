@@ -1,9 +1,35 @@
-#Step 1 
+import random 
 
 word_list = ["aardvark", "baboon", "camel"]
 
-#TODO-1 - Randomly choose a word from the word_list and assign it to a variable called chosen_word.
+#gameprep var
+chosen_word = word_list[random.randint(0, len(word_list) - 1)]
+blank_word_arr = list("_" * len(chosen_word))
+blank_word = ''.join(blank_word_arr)
+game_continue = True
+lives = 7
+print(chosen_word)
+#===================================================================================================#
+while game_continue:
+    print(blank_word)
+    letter = input("Guess a letter: ")
+    has_letter = False
 
-#TODO-2 - Ask the user to guess a letter and assign their answer to a variable called guess. Make guess lowercase.
+    #search letter
+    for i in range(0, len(chosen_word)):
+        if letter == chosen_word[i]:
+            has_letter = True
+            blank_word_arr[i] = chosen_word[i]
 
-#TODO-3 - Check if the letter the user guessed (guess) is one of the letters in the chosen_word.
+    if not has_letter:
+        lives -= 1
+    else:
+        blank_word = ''.join(blank_word_arr)
+    if lives == 0 or blank_word == chosen_word:
+        game_continue = False
+#===================================================================================================#
+if lives == 0:
+    print("You lose!")
+else:
+    print("You win!")
+
