@@ -1,13 +1,16 @@
 import random 
-
-word_list = ["aardvark", "baboon", "camel"]
+from hangmam_words import word_list
+from game_art import logo
+from game_art import stages
 
 #gameprep var
 chosen_word = word_list[random.randint(0, len(word_list) - 1)]
 blank_word_arr = list("_" * len(chosen_word))
 blank_word = ''.join(blank_word_arr)
 game_continue = True
-lives = 7
+lives = 6
+
+print(logo)
 print(chosen_word)
 #===================================================================================================#
 while game_continue:
@@ -23,13 +26,20 @@ while game_continue:
 
     if not has_letter:
         lives -= 1
+        print(f"You gessed {letter}, that's not int he word. You lose a life.")
     else:
         blank_word = ''.join(blank_word_arr)
-    if lives == 0 or blank_word == chosen_word:
+
+    if lives < 0 or blank_word == chosen_word:
         game_continue = False
+        break
+
+    print(stages[lives])
 #===================================================================================================#
-if lives == 0:
+if lives < 0:
     print("You lose!")
 else:
     print("You win!")
+    print(f"The word was: {chosen_word}")
 
+#===================================================================================================#
